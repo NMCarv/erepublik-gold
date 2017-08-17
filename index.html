@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>eRepublik Mercado Monetário</title>
+    <link rel="stylesheet" href="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script type="text/javascript">
+        $(document).ready(function($) {
+            var $apiKey = "Kljt3BmjypYsmedSl2Z3";
+            var $lower = 0;
+            var $higher = 0;
+
+            $.ajax({
+                url: "https://api.erepublik-deutschland.de/" + $apiKey + "/monetarymarket/gold",
+                type: "get",
+                datatype: 'json',
+                success: function(data) {
+                    if (data.status == "ok") {
+                        $.each(data.offers, function(index, offer) {
+                            /* This logs the offer object into your console */
+                            console.log("ID: " + index + " - Oferta: " + offer.offer.rate + " PTE");
+                            $("#t1").append("<tr><td>" + index + "</td><td>" + offer.seller.name + "</td><td>" + offer.offer.rate + " PTE</td></tr>");
+                            if ($lower != 0) {
+                                if (offer.offer.rate <= $lower) {
+                                    $lower = offer.offer.rate;
+                                }
+                            }
+                            else {
+                                $lower = offer.offer.rate;
+                            }
+
+                            if ($higher != 0) {
+                                if (offer.offer.rate >= $higher) {
+                                    $higher = offer.offer.rate;
+                                }
+                            }
+                            else {
+                                $higher = offer.offer.rate;
+                            }
+                        });
+                        $("#t2").append("<tr><td class='success'>" + $lower + "</td><td class='danger'>" + $higher + "</td></tr>");
+                    } else {
+                        console.log("An error occured: "+data.message);
+                    }
+                },
+                error: function() {
+                    console.log("An error occured");
+                }
+            });
+        });
+    </script>
+    <style>
+        * {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Valor do Ouro no Mercado Monetário - eRepublik</h1>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <th>ID</th>
+                    <th>Vendedor</th>
+                    <th>Oferta</th>
+                </thead>
+                <tbody id="t1">
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <th>Valor mais baixo</th>
+                    <th>Valor mais alto</th>
+                </thead>
+                <tbody id="t2">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
