@@ -15,7 +15,7 @@ $(document).ready(function($) {
                 $.each(data.offers, function(index, offer) {
                     /* This logs the offer object into your console */
                     console.log("Data/Hora (eRepublik): " + offer.added + " - Oferta: " + offer.offer.rate + " PTE");
-                    $("#t1").append("<tr><td>" + offer.added + "</td><td>" + offer.seller.name + "</td><td>" + offer.offer.rate + " PTE</td></tr>");
+                    $("#t1").append("<tr><td>" + offer.added + "</td><td><a href='https://www.erepublik.com/br/citizen/profile/" + offer.seller.id + "'>" + offer.seller.name + "</a></td><td>" + offer.offer.rate + " PTE</td></tr>");
                     if ($lower != 0) {
                         if (offer.offer.rate <= $lower) {
                             $lower = offer.offer.rate;
