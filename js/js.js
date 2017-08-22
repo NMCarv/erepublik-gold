@@ -43,4 +43,12 @@ $(document).ready(function($) {
             console.log("An error occured");
         }
     });
+    
+    var audio = {};
+    audio["sino"] = new Audio();
+    audio["sino"].src = "inserirSomAqui"
+    audio["sino"].addEventListener('load', function () {
+        audio["sino"].play();
+    });
+    
 });
