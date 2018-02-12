@@ -2,6 +2,10 @@
  * Created by Nuno Martins on 17-08-2017.
  */
 
+// The lowest and highest prices
+var $lower = 0;
+var $higher = 0;
+
 // Function to create cookies
 function setCookie(name, value, days) {
     var expires = "";
@@ -26,16 +30,12 @@ function getCookie(name) {
 }
 
 // Function to delete cookies
-function eraseCookie(name) {   
-    document.cookie = name+'=; Max-Age=-99999999;';  
+function eraseCookie(name) {
+    document.cookie = name+'=; Max-Age=-99999999;';
 }
 
 $(document).ready(function($) {
     var $apiKey = "Kljt3BmjypYsmedSl2Z3";
-
-    // The lowest and highest prices
-    var $lower = 0;
-    var $higher = 0;
 
     var refreshed = getCookie("Refresh");
 
@@ -81,7 +81,7 @@ $(document).ready(function($) {
                 });
 
                 // On the 2nd table, append the lowest and the highest prices
-                $("#t2").append("<tr><td class='success'>" + $lower + "</td><td class='danger'>" + $higher + "</td></tr>");
+                $("#t2").append("<tr><td class='success'>" + $lower + " PTE</td><td class='danger'>" + $higher + " PTE</td></tr>");
             } else {
                 console.log("An error occured: " + data.message);
             }
