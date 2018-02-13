@@ -124,13 +124,3 @@ function addValue() {
 		}
 	});
 };
-
-function sobre() {
-    BootstrapDialog.show({
-        title: 'Sobre o projeto "eRepublik Gold"',
-        message: 'O eRepublik Gold é um projeto com o objetivo de facilitar a negociação de ouro no jogo eRepublik.',
-        description: 'Caixa de diálogo sobre o projeto',
-        type: BootstrapDialog.TYPE_DEFAULT,
-        draggable: true
-    });
-}
