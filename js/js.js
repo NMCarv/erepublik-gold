@@ -6,34 +6,6 @@
 var $lower = 0;
 var $higher = 0;
 
-// Function to create cookies
-function setCookie(name, value, days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-}
-
-// Function to get cookies
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-
-// Function to delete cookies
-function eraseCookie(name) {
-    document.cookie = name+'=; Max-Age=-99999999;';
-}
-
 $(document).ready(function($) {
     var $apiKey = "Kljt3BmjypYsmedSl2Z3";
 
@@ -91,3 +63,35 @@ $(document).ready(function($) {
         }
     });
 });
+
+function addValue() {
+	promptDialog(function(options) {
+		try  {
+			var values = getValues();
+			if (values === null || values.length === 0) {
+				var set = [{number: 0}];
+				setValues(set);
+				var values = getValues();
+			}
+
+			values.push({'id': ++values[0].number, 'value': options.value});
+
+			$("#t3").append("<tr><td>" + values[0].number + "</td><td>" + options.value + " PTE</td><td><button type='button' class='btn btn-primary change-val'>Alterar</button> <button type='button' class='btn btn-danger delete'>Remover</button></td></tr>");
+
+			setValues(values);
+		}
+		catch (ex) {
+			alert("Erro: " + ex.message);
+		}
+	});
+};
+
+function sobre() {
+    BootstrapDialog.show({
+        title: 'Sobre o projeto "eRepublik Gold"',
+        message: 'O eRepublik Gold é um projeto com o objetivo de facilitar a negociação de ouro no jogo eRepublik.',
+        description: 'Caixa de diálogo sobre o projeto',
+        type: BootstrapDialog.TYPE_DEFAULT,
+        draggable: true
+    });
+}

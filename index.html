@@ -35,8 +35,13 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+    <!-- Bootstrap DIalog -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
+
     <!-- JavaScript -->
     <script src="js/js.js"></script>
+    <script src="js/func.js"></script>
 
     <!-- Estilo -->
     <link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -83,14 +88,14 @@
         </div>
 
         <div class="row">
-            <button id="insert-val" type="button" class="btn btn-default center-block">Adicionar um valor personalizado</button>
+            <button id="insert-val" type="button" class="btn btn-default center-block" onclick="addValue();">Adicionar um valor personalizado</button>
         </div>
     </div>
 
     <footer class="footer">
         <div class="container">
             <p class="text-muted">Criado por <a href="https://www.erepublik.com/br/citizen/profile/9236118" target="_blank">Ormaker</a></p>
-            <a class="text-muted" href="#">Sobre</a>
+            <a class="text-muted" href="#" onclick="sobre();">Sobre</a>
         </div>
     </footer>
 </body>
