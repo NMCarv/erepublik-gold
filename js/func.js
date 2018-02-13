@@ -63,6 +63,20 @@ function promptDialog(fun) {
 function showValues() {
 	var values = getValues();
 	for (i = 1; i <= values.length; i++) {
-		$("#t3").append("<tr><td>" + values[i].id + "</td><td>" + values[i].value + " PTE</td><td><button type='button' class='btn btn-primary change-val'>Alterar</button> <button type='button' class='btn btn-danger delete'>Remover</button></td></tr>");
+		$("#t3").append("<tr><td>" + values[i].id + "</td><td>" + values[i].value + " PTE " + getVariation($lower, values[i].value) + "</td><td><button type='button' class='btn btn-primary change-val'>Alterar</button> <button type='button' class='btn btn-danger delete'>Remover</button></td></tr>");
 	}
+}
+
+function getVariation(lower, value) {
+	var percent = ((lower - value) / value) * 100;
+
+	if (lower > value) {
+		// Positive
+		var span = "<span class='glyphicon glyphicon-triangle-top text-success'> (" + percent.toFixed(2) + "%) " + (lower - value).toFixed(2) + " PTE</span>"
+	}
+	else if (value > lower) {
+		// Negative
+		var span = "<span class='glyphicon glyphicon-triangle-bottom text-danger'> (" + percent.toFixed(2) + "%) " + (lower - value).toFixed(2) + " PTE</span>"
+	}
+	return span;
 }

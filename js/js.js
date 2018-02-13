@@ -30,25 +30,25 @@ $(document).ready(function($) {
 	        if (data.status == "ok") {
 	            $.each(data.offers, function(index, offer) {
 	                /* This logs the offer object into your console */
-	                console.log("Data/Hora (eRepublik): " + offer.added + " - Oferta: " + offer.offer.rate + " PTE");
+	                console.log("Data/Hora (eRepublik): " + offer.added + " - Oferta: " + offer.offer.rate.toFixed(2) + " PTE");
 	                // It creates a new row on the table with the information
-	                $("#t1").append("<tr><td>" + offer.added + "</td><td><a href='https://www.erepublik.com/br/citizen/profile/" + offer.seller.id + "'>" + offer.seller.name + "</a></td><td>" + offer.offer.rate + " PTE</td></tr>");
+	                $("#t1").append("<tr><td>" + offer.added + "</td><td><a href='https://www.erepublik.com/br/citizen/profile/" + offer.seller.id + "'>" + offer.seller.name + "</a></td><td>" + offer.offer.rate.toFixed(2) + " PTE</td></tr>");
 	                if ($lower != 0) {
-	                    if (offer.offer.rate <= $lower) {
-	                        $lower = offer.offer.rate;
+	                    if (offer.offer.rate.toFixed(2) <= $lower) {
+	                        $lower = offer.offer.rate.toFixed(2);
 	                    }
 	                }
 	                else {
-	                    $lower = offer.offer.rate;
+	                    $lower = offer.offer.rate.toFixed(2);
 	                }
 
 	                if ($higher != 0) {
-	                    if (offer.offer.rate >= $higher) {
-	                        $higher = offer.offer.rate;
+	                    if (offer.offer.rate.toFixed(2) >= $higher) {
+	                        $higher = offer.offer.rate.toFixed(2);
 	                    }
 	                }
 	                else {
-	                    $higher = offer.offer.rate;
+	                    $higher = offer.offer.rate.toFixed(2);
 	                }
 	            });
 
@@ -76,6 +76,26 @@ $(document).ready(function($) {
 		filtered[0].number = filtered.length - 1;
 		setValues(filtered);
 	});
+
+	$("#table-val").on('click', 'tr .change-val', function(event) {
+		event.preventDefault();
+		var id = parseInt($(this).parents('tr').children(':first').html());
+		var val_cell = $(this).parents("tr").children(':nth-child(2)');
+		var c = getValues();
+		promptDialog(function(options) {
+			try {
+				var find = c.indexOf(c.find(item => item.id === id));
+				c[find].value = options.value;
+
+				setValues(c);
+				val_cell.html(options.value + " PTE " + getVariation($lower, options.value));
+				options.dialogRef.close();
+			}
+			catch(ex) {
+				alert("Erro: " + ex.message);
+			}
+		});
+	});
 });
 
 function addValue() {
@@ -94,7 +114,7 @@ function addValue() {
 
 			values.push({'id': ++values[0].number, 'value': options.value});
 
-			$("#t3").append("<tr><td>" + values[0].number + "</td><td>" + options.value + " PTE</td><td><button type='button' class='btn btn-primary change-val'>Alterar</button> <button type='button' class='btn btn-danger delete'>Remover</button></td></tr>");
+			$("#t3").append("<tr><td>" + values[0].number + "</td><td>" + options.value + " PTE " + getVariation($lower, options.value) + "</td><td><button type='button' class='btn btn-primary change-val'>Alterar</button> <button type='button' class='btn btn-danger delete'>Remover</button></td></tr>");
 
 			setValues(values);
 			options.dialogRef.close();
