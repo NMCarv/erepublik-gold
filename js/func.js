@@ -39,7 +39,7 @@ function getValues() {
 function promptDialog(fun) {
 	BootstrapDialog.show({
 		title: 'Insira um valor:',
-       	message: '<input type="text" class="form-control">',
+       	message: '<input type="text" class="form-control" placeholder="Por exemplo, 432 PTE">',
        	description: 'Caixa de diálogo para inserção de valores',
        	type: BootstrapDialog.TYPE_DEFAULT,
        	draggable: true,
@@ -49,7 +49,6 @@ function promptDialog(fun) {
 				var value = dialogRef.getModalBody().find('input').val();
 				if (value !== "") {
 					fun({value: value, dialogRef: dialogRef});
-					dialogRef.close();
 				}
 				else {
 					BootstrapDialog.alert("Digite um valor");
@@ -59,6 +58,11 @@ function promptDialog(fun) {
 	});
 }
 
-function addValuesTab() {
+// ---------------------------------------------
 
+function showValues() {
+	var values = getValues();
+	for (i = 1; i <= values.length; i++) {
+		$("#t3").append("<tr><td>" + values[i].id + "</td><td>" + values[i].value + " PTE</td><td><button type='button' class='btn btn-primary change-val'>Alterar</button> <button type='button' class='btn btn-danger delete'>Remover</button></td></tr>");
+	}
 }
